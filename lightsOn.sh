@@ -101,7 +101,11 @@ checkFullscreen()
                 var=$?
                 if [[ $var -eq 1 ]];then
                     delayScreensaver
+                else
+                    PresentationModeOff
                 fi
+            else
+                PresentationModeOff
             fi
     done
 }
@@ -206,9 +210,15 @@ delayScreensaver()
             xset dpms
     fi
 
+    # xfce4-power-manager presentation mode on
+    xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -s true
 }
 
-
+PresentationModeOff()
+# xfce4-power-manager presentation mode off
+{
+    xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -s false
+}
 
 delay=$1
 
